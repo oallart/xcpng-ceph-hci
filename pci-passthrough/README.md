@@ -56,3 +56,16 @@ Again, using your own device ID, use
 /opt/xensource/libexec/xen-cmdline --set-dom0 "xen-pciback.hide=(05:00.0)"
 ```
 You can then check `/etc/grub.cfg` for the change made.
+
+## Passing the device to a given VM
+Create a VM with any method you normally use. The VM must be created first, AFAIK there is no way to add the device at creation time. `xe` commands are used to glue the PCI device ID to the vm as follows (VM UUID is required):
+```
+xe vm-param-set other-config:pci=0/0000:05:00.0 uuid=<VM UUID>
+```
+fixme: VM reboot required?
+
+If all goes well, the VM will show the device in `lspci`, quite possibly with _a different id_, in my case *00:06.0*
+```
+00:06.0 Serial Attached SCSI controller: LSI Logic / Symbios Logic SAS2308 PCI-Express Fusion-MPT SAS-2 (rev 05)
+```
+Disks associated with that controller should then be listed in `/dev/disk/by-path/` and any activity showing in `dmesg` on the *vm*, not on the *host*.
