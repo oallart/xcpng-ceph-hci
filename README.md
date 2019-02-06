@@ -36,6 +36,10 @@ The 3 node setup can be expanded with more nodes, giving more OSDs and more capa
   * CEPH-SR configuration
 * Testing, a lot
 
+## Other things
+* clean OSD maintenance state on host shutdown
+* pool settings for proper shared storage
+
 ## Next phase
 * Ansible automatic deployments
   * CEPH has support for ansible already
