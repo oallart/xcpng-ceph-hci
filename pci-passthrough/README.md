@@ -69,3 +69,26 @@ If all goes well, the VM will show the device in `lspci`, quite possibly with _a
 00:06.0 Serial Attached SCSI controller: LSI Logic / Symbios Logic SAS2308 PCI-Express Fusion-MPT SAS-2 (rev 05)
 ```
 Disks associated with that controller should then be listed in `/dev/disk/by-path/` and any activity showing in `dmesg` on the *vm*, not on the *host*.
+
+Here's the output of `dmesg` on the VM when I hotplug a disk on the controller with PCI ID 00:05.0 (on the host)
+```
+[82806.563511] scsi 2:0:0:0: Direct-Access     ATA      INTEL SSDSC2CW24 400i PQ: 0 ANSI: 6
+[82806.563521] scsi 2:0:0:0: SATA: handle(0x0009), sas_addr(0x4433221104000000), phy(4), device_name(0x0000000000000000)
+[82806.563524] scsi 2:0:0:0: enclosure logical id (0x500605b005cc6790), slot(7) 
+[82806.563797] scsi 2:0:0:0: atapi(n), ncq(y), asyn_notify(n), smart(y), fua(y), sw_preserve(y)
+[82806.563803] scsi 2:0:0:0: qdepth(32), tagged(1), simple(0), ordered(0), scsi_level(7), cmd_que(1)
+[82806.598349] scsi 2:0:0:0: Attached scsi generic sg1 type 0
+[82806.623408] sd 2:0:0:0: [sda] 468862128 512-byte logical blocks: (240 GB/223 GiB)
+[82806.703570] sd 2:0:0:0: [sda] Write Protect is off
+[82806.703575] sd 2:0:0:0: [sda] Mode Sense: 7f 00 10 08
+[82806.723585] sd 2:0:0:0: [sda] Write cache: enabled, read cache: enabled, supports DPO and FUA
+[82807.003575] sd 2:0:0:0: [sda] Attached SCSI disk
+```
+
+`/dev` shows the following now:
+```
+lrwxrwxrwx 1 root root 9 Feb  6 16:07 pci-0000:00:06.0-sas-0x4433221104000000-lun-0 -> ../../sda
+lrwxrwxrwx 1 root root 9 Feb  6 16:07 pci-0000:00:06.0-sas-phy4-lun-0 -> ../../sda
+```
+
+SUCCESS! My physical disk is now handled directly by the VM, perfect for my CEPH OSD. Next step, CEPH.
