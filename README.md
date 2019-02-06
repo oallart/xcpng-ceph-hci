@@ -1,3 +1,5 @@
+*_This project is currently in the early stages and consists mostly of documentation and notes_*
+
 # xcpng-ceph-hci
 An attempt at bringing hyperconverged [hci](https://en.wikipedia.org/wiki/Hyper-converged_infrastructure) xen virtualization and ceph without [openstack](https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/12/html-single/hyper-converged_infrastructure_guide/index).
 
