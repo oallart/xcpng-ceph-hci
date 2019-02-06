@@ -50,7 +50,7 @@ In both cases a reboot is required
 ### Modifying grub directly
 Simply edit `/etc/grub.cfg` and add `xen-pciback.hide=(05:00.0)` (replace with your own bus ID) to the command line
 
-### xen-pciback.hide=(05:00.0)
+### Using a specific command line tool
 Again, using your own device ID, use
 ```shell
 /opt/xensource/libexec/xen-cmdline --set-dom0 "xen-pciback.hide=(05:00.0)"
