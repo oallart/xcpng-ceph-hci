@@ -47,7 +47,7 @@ There are two ways to tell xen to ignore a given PCI device:
 1. Modifying grub directly
 2. Using a specific command line tool
 
-In both cases a reboot is required
+_In both cases a reboot is required_
 
 ### Modifying grub directly
 Simply edit `/etc/grub.cfg` and add `xen-pciback.hide=(05:00.0)` (replace with your own bus ID) to the command line
@@ -58,6 +58,14 @@ Again, using your own device ID, use
 /opt/xensource/libexec/xen-cmdline --set-dom0 "xen-pciback.hide=(05:00.0)"
 ```
 You can then check `/etc/grub.cfg` for the change made.
+
+### Checking the device is ready
+After rebooting, you can check the device is ready ("assignable") with the following command:
+```
+#  xl pci-assignable-list
+0000:05:00.0
+```
+With this, the preparation is complete and you can assign the device to a VM.
 
 ## Passing the device to a given VM
 Create a VM with any method you normally use. The VM must be created first, AFAIK there is no way to add the device at creation time. `xe` commands are used to glue the PCI device ID to the vm as follows (VM UUID is required):
