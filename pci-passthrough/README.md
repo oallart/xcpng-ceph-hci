@@ -13,6 +13,8 @@ More on Vt-d at https://software.intel.com/en-us/blogs/2009/06/25/understanding-
 Some more research into this topic led me to https://en.wikipedia.org/wiki/Input%E2%80%93output_memory_management_unit
 In other words, we need an IOMMU (Vt-d for intel, IOV for AMD). This requirement is painfully absent from the official XenServer documentation and I discovered it only after setting up a bunch of spare (old) hardware that did not support it.
 
+XCP-ng has the following bit on the technology: https://github.com/xcp-ng/xcp/wiki/PCI-Passtrough
+
 ## Hardware used
 My current test setup uses 3 Supermicro X9DRW with a PCIe LSI SAS2308 controller. A rewiring of some of the front disk bays is done to have the SAS controller manage these bays instead of the _onboard_ controller, making use of the SAS->SATA compatibility. 
 
