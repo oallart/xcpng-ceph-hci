@@ -1,7 +1,7 @@
 *_This project is currently in the early stages and consists mostly of documentation and notes_*
 
 # xcpng-ceph-hci
-An attempt at bringing hyperconverged [hci](https://en.wikipedia.org/wiki/Hyper-converged_infrastructure) xen virtualization and ceph without [openstack](https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/12/html-single/hyper-converged_infrastructure_guide/index).
+An attempt at bringing a [hyperconverged infrastrcuture](https://en.wikipedia.org/wiki/Hyper-converged_infrastructure) unifying compute ([xen virtualization](https://www.xenproject.org/)) and storage ([ceph](https://ceph.com/)) without [openstack](https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/12/html-single/hyper-converged_infrastructure_guide/index).
 
 ## Key concepts
 The idea is to provide a 3-hardware node cluster running each [XCP-ng](https://xcp-ng.org/) with [PCI passthrough](https://xenserver.org/blog/entry/pci-pass-through-on-xenserver-7-0.html) enabling direct access to the storage disks for a CEPH OSD. This will in turn propulate a [CEPH type SR](https://github.com/xcp-ng/xcp/wiki/Ceph-on-XCP-ng-7.5-or-later) that can be used by any VM in or outside the cluster. 
@@ -9,8 +9,8 @@ The idea is to provide a 3-hardware node cluster running each [XCP-ng](https://x
 The concept is similar to [XOSAN](https://xen-orchestra.com/docs/xosan.html) which uses Gluster, but another difference is PCI passthrough to avoid speed bottlenecks (XOSAN uses virtualised storage layers). The availability of CEPH-SR makes it possible to have a solution that doesn't use openstack.
 
 ## Key requirements
-* xcp-ng (current target: 7.5, due to some 7.6 upstream issues)
-* ceph (current LTS: Luminous)
+* xcp-ng (current target: 7.5, due to some [7.6 upstream issues](https://bugs.xenserver.org/browse/XSO-924))
+* ceph (current LTS: [Luminous](http://docs.ceph.com/docs/mimic/releases/luminous/))
 * 3 identical hardware nodes (identical in order CPU differences that can prevent VM migrations)
   * [Vt-d](https://software.intel.com/en-us/blogs/2009/06/25/understanding-vt-d-intel-virtualization-technology-for-directed-io) enabled (not just VT, this is required for PCI passthrouugh) or equivalent [IOMMU](https://en.wikipedia.org/wiki/Input%E2%80%93output_memory_management_unit)
   * At least 2x GB interfaces (10GB interfaces preferred), 1 dedicated to internode replication
