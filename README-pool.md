@@ -10,3 +10,27 @@ For this current project, we need to carefuly weight the pros and cons of [resou
 ## Pros and Cons
 
 Here is a list of the pros and cons I assembled from various sources. I am keen to hear more from other users, since we don't use pools in production.
+
+### Pros
+- High availability (restart VMs automatically in case of host failure)
+- Automatic load balancing (migrates VM to use resources available and avoid cramming)
+- Hosts in pools can access each other's libraries
+- Provides heterogenous CPU set migration by automatically masking differences between hosts (specific vendor features required)
+- Allows for fast vm migration using shared storage (xenmotion) without copying storage
+- Allows for rolling updates
+- Apparenty generally desirable
+
+
+### Cons
+- Increases complexity
+- Updates must apply to pool master first, always
+- Cannot be created from hosts that have running VMs (must be shut down first)
+- Cannot be created from hardware that it is too different
+- Creates issues with LACP (especially for the management interface)
+- Forces us to create the pool early on as VMs must otherwise be shut down
+- A dedicated interface is recommended
+- We have lots of prod systems runnign standalone absolutely fine
+
+### Also to consider
+- xenmotion (live migration) also works outside a pool but storage must be copied over (takes time)
+- adding/removing hosts from a pool has an unknown (for us) number of complications
