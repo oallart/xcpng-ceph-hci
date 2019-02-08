@@ -31,7 +31,7 @@ Here is a list of the pros and cons I assembled from various sources. I am keen 
 - Forces us to create the pool early on as VMs must otherwise be shut down
 - A dedicated interface is recommended
 - Shared storage should be available at pool creation (more on this below)
-- We have lots of prod systems runnign standalone absolutely fine
+- We have lots of prod systems running standalone absolutely fine
 
 ### Also to consider
 - xenmotion (live migration) also works outside a pool but storage must be copied over (takes time)
@@ -46,4 +46,6 @@ The following 3 requirements make it hard for us to use pools:
 
 If we forgo #2, then we can have a resrource pool, with OSD vms attached locally to their hosts (they should never migrate anyway since they use pci passthrough). In this case, we can use a pool by creating it *before* creating the OSD vms.
 
-Otherwise, we might be better off simply not using pools for the experimental phase of this project.
+It would make sense to use pools in order to take advantage of all the features, especially the shared storage that CEPH will provide.
+
+Decision was therefore made to initiate the project with a pool, and learn a few things along the way.
