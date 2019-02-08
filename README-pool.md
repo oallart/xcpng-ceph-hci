@@ -19,6 +19,7 @@ Here is a list of the pros and cons I assembled from various sources. I am keen 
 - Allows for fast vm migration using shared storage (xenmotion) without copying storage
 - Allows for rolling updates
 - Apparenty generally desirable
+- Probably good to have for a "turn-key product"
 
 
 ### Cons
@@ -29,8 +30,20 @@ Here is a list of the pros and cons I assembled from various sources. I am keen 
 - Creates issues with LACP (especially for the management interface)
 - Forces us to create the pool early on as VMs must otherwise be shut down
 - A dedicated interface is recommended
+- Shared storage should be available at pool creation (more on this below)
 - We have lots of prod systems runnign standalone absolutely fine
 
 ### Also to consider
 - xenmotion (live migration) also works outside a pool but storage must be copied over (takes time)
 - adding/removing hosts from a pool has an unknown (for us) number of complications
+
+## Pools in the HCI project
+
+The following 3 requirements make it hard for us to use pools:
+1. Pool can't be created with VMs running
+1. Shared storage should be available before creating the pool
+1. Shared storage is created from various VMs that need to run in the pool
+
+If we forgo #2, then we can have a resrource pool, with OSD vms attached locally to their hosts (they should never migrate anyway since they use pci passthrough). In this case, we can use a pool by creating it *before* creating the OSD vms.
+
+Otherwise, we might be better off simply not using pools for the experimental phase of this project.
