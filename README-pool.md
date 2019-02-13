@@ -49,3 +49,5 @@ If we forgo #2, then we can have a resrource pool, with OSD vms attached locally
 It would make sense to use pools in order to take advantage of all the features, especially the shared storage that CEPH will provide.
 
 Decision was therefore made to initiate the project with a pool, and learn a few things along the way.
+
+One big issue we have encountered along the way: defining a pool with hosts that already have pci-passthrough defined. Bad moments followed, impossible to revert to standalone or get anything stable. Boxes were left in "maintenance mode", toolstack restart was useless. We had to reinstall clean.
