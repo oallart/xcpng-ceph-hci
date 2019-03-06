@@ -72,9 +72,9 @@ Create a VM with any method you normally use. The VM must be created first, AFAI
 ```
 xe vm-param-set other-config:pci=0/0000:05:00.0 uuid=<VM UUID>
 ```
-fixme: VM reboot required?
+VM reboot is required.
 
-If all goes well, the VM will show the device in `lspci`, quite possibly with _a different id_, in my case *00:06.0*
+If all goes well, the VM will show the device in `lspci`, quite possibly with _a different id_, in my case `00:06.0`
 ```
 00:06.0 Serial Attached SCSI controller: LSI Logic / Symbios Logic SAS2308 PCI-Express Fusion-MPT SAS-2 (rev 05)
 ```
