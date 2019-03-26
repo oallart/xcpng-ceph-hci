@@ -27,6 +27,12 @@ XEN-PV-IOMMU: Using software bounce buffering for IO on 32bit DMA devices (SWIOT
 XEN-PV-IOMMU - completed setting up 1-1 mapping
 ```
 
+Alternatively, this should, too
+```shell
+# xl dmesg | grep "Interrupt Remapping"
+(XEN) [    9.368443] Intel VT-d Interrupt Remapping enabled.
+```
+
 ## PCI Bus Id
 We need to identify the correct ID in [BDF](https://wiki.xen.org/wiki/Bus:Device.Function_(BDF)_Notation) format and *make sure it is separate from the controller managing the base OS storage*.
 We can have an identical Bus and Device as long as the _Function_ id is different. In my case, using an add-in cars solves my problem.
